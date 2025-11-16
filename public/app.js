@@ -102,7 +102,7 @@ function displayHistory() {
 async function fetchWeather(city) {
     try {
         showLoading();
-        const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+        const response = await fetch(`http://localhost:3000/weather?city=${encodeURIComponent(city)}`);
         const data = await response.json();
 
         if (response.ok) {

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    backgroundImage: {
+                        // Custom backgrounds for weather conditions
+                        'sunny': 'linear-gradient(to bottom, #f6d365 0%, #fda085 100%)',
+                        'cloudy': 'linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%)',
+                        'rainy': 'linear-gradient(to bottom, #667eea 0%, #764ba2 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-400 to-blue-600 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Weather App</h1>
+        
+        <!-- Form -->
+        <form id="weatherForm" class="mb-6">
+            <div class="flex">
+                <input 
+                    type="text" 
+                    id="cityInput" 
+                    placeholder="Enter city name" 
+                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-r-lg transition duration-200"
+                >
+                    Get Weather
+                </button>
+            </div>
+        </form>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="hidden flex justify-center items-center mb-4">
+            <div class="loader"></div>
+            <span class="ml-2">Loading...</span>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+
+        <!-- Weather Display -->
+        <div id="weatherDisplay" class="hidden">
+            <h2 id="cityName" class="text-xl font-semibold text-gray-800 mb-2"></h2>
+            <div class="flex items-center mb-4">
+                <img id="weatherIcon" src="" alt="Weather Icon" class="w-16 h-16 mr-4">
+                <div>
+                    <p id="temperature" class="text-3xl font-bold text-gray-900"></p>
+                    <p id="description" class="text-gray-600 capitalize"></p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">Humidity</p>
+                    <p id="humidity" class="text-lg font-semibold"></p>
+                </div>
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">Wind Speed</p>
+                    <p id="windSpeed" class="text-lg font-semibold"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search History -->
+        <div id="history" class="mt-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Recent Searches</h3>
+            <ul id="historyList" class="max-h-32 overflow-y-auto"></ul>
+        </div>
+    </div>
+
+    <style>
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .bg-sunny {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f6d365"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>');
+            background-size: cover;
+        }
+
+        .bg-cloudy {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23bdc3c7"><circle cx="12" cy="10" r="4"/><path d="M10 2L18 6L14 14L6 10Z"/></svg>');
+            background-size: 20%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .bg-rainy {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"><circle cx="12" cy="10" r="4"/><path d="M10 18l2 4m0-4l2 4m-4-4l2 4m-2-4v2m4-4v2m-8-4v2m8-4v2"/></svg>');
+            background-size: 20%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+
+    <script src="app.js"></script>
+</body>
+</html>

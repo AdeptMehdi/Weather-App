@@ -1,0 +1,311 @@
+/* Global Styles */
+body {
+  font-family: 'Iran Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  color: white;
+  transition: background 0.6s ease, background-image 0.6s ease;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-card-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  outline: none;
+  transform: scale(1.02);
+}
+
+select.glass-input option {
+  background: rgba(31, 38, 135, 0.9);
+  color: white;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.weather-container {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.weather-wrapper {
+  max-width: 900px;
+  width: 100%;
+}
+
+.display-4 {
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#currentWeather i {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.weather-appear {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Weather Background Themes */
+.sunny {
+  background: linear-gradient(135deg, #87ceeb 0%, #ffb347 100%);
+}
+
+.cloudy {
+  background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 50%, #34495e 100%);
+}
+
+.rainy {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stormy {
+  background: linear-gradient(135deg, #2c3e50 0%, #bdc3c7 100%);
+}
+
+.snowy {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+.foggy {
+  background: linear-gradient(135deg, #757f9a 0%, #d7dde8 100%);
+}
+
+.night {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #8e44ad 100%);
+}
+
+/* Effects Container */
+#weather-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Rain and Snow Effects */
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  animation:fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.snowflake {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: snowFall linear infinite;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.cloud {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  animation: drift linear infinite;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.cloud::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  width: 60px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.cloud::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 70px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes drift {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+.lightning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  animation: flash linear infinite;
+}
+
+@keyframes flash {
+  0%, 95% { opacity: 0; }
+  1%, 5% { opacity: 0.3; }
+}
+
+.fog-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  filter: blur(20px);
+  animation: fogMove linear infinite;
+}
+
+@keyframes fogMove {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(-150%); }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Forecast Styles */
+.forecast-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+}
+
+.forecast-card i {
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.forecast-card small {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,71 @@
+{
+  "cities": ["Tehran", "Berlin", "London", "New York"],
+  "Tehran": {
+    "current": {
+      "temp": 18,
+      "feels_like": 17,
+      "humidity": 45,
+      "wind": 5,
+      "description": "صاف",
+      "icon": "fa-sun"
+    },
+    "forecast": [
+      {"date":"2025-11-19","high":20,"low":10,"description":"صاف","icon":"fa-sun"},
+      {"date":"2025-11-20","high":18,"low":9,"description":"نیمه ابری","icon":"fa-cloud-sun"},
+      {"date":"2025-11-21","high":15,"low":7,"description":"بارانی","icon":"fa-cloud-showers-heavy"},
+      {"date":"2025-11-22","high":12,"low":4,"description":"باران و باد","icon":"fa-wind"},
+      {"date":"2025-11-23","high":10,"low":2,"description":"بارش برف احتمالی","icon":"fa-snowflake"}
+    ]
+  },
+  "Berlin": {
+    "current": {
+      "temp": 12,
+      "feels_like": 10,
+      "humidity": 70,
+      "wind": 8,
+      "description": "Abri",
+      "icon": "fa-cloud"
+    },
+    "forecast": [
+      {"date":"2025-11-19","high":14,"low":8,"description":"Abri","icon":"fa-cloud"},
+      {"date":"2025-11-20","high":13,"low":7,"description":"Regen","icon":"fa-cloud-showers-heavy"},
+      {"date":"2025-11-21","high":10,"low":5,"description":"Windy","icon":"fa-wind"},
+      {"date":"2025-11-22","high":9,"low":3,"description":"Cold","icon":"fa-snowflake"},
+      {"date":"2025-11-23","high":11,"low":4,"description":"Sunny","icon":"fa-sun"}
+    ]
+  },
+  "London": {
+    "current": {
+      "temp": 10,
+      "feels_like": 8,
+      "humidity": 80,
+      "wind": 12,
+      "description": "Drizzle",
+      "icon": "fa-cloud-rain"
+    },
+    "forecast": [
+      {"date":"2025-11-19","high":12,"low":6,"description":"Drizzle","icon":"fa-cloud-rain"},
+      {"date":"2025-11-20","high":11,"low":5,"description":"Fog","icon":"fa-cloud"},
+      {"date":"2025-11-21","high":9,"low":4,"description":"Rain","icon":"fa-cloud-showers-heavy"},
+      {"date":"2025-11-22","high":8,"low":2,"description":"Wind","icon":"fa-wind"},
+      {"date":"2025-11-23","high":10,"low":3,"description":"Clear","icon":"fa-sun"}
+    ]
+  },
+  "New York": {
+    "current": {
+      "temp": 14,
+      "feels_like": 12,
+      "humidity": 60,
+      "wind": 10,
+      "description": "Partly cloudy",
+      "icon": "fa-cloud-sun"
+    },
+    "forecast": [
+      {"date":"2025-11-19","high":16,"low":8,"description":"Partly cloudy","icon":"fa-cloud-sun"},
+      {"date":"2025-11-20","high":15,"low":7,"description":"Sunny","icon":"fa-sun"},
+      {"date":"2025-11-21","high":13,"low":5,"description":"Rain","icon":"fa-cloud-showers-heavy"},
+      {"date":"2025-11-22","high":11,"low":3,"description":"Snow","icon":"fa-snowflake"},
+      {"date":"2025-11-23","high":12,"low":4,"description":"Cloudy","icon":"fa-cloud"}
+    ]
+  }
+}

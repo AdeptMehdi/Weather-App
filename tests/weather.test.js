@@ -1,42 +1,67 @@
 const request = require('supertest');
-const app = require('../server.js'); // The Express app
+const app = require('../server');
 
 describe('Weather API', () => {
-  it('should return JSON weather data for valid city', async () => {
-    const response = await request(app).get('/weather').query({ city: 'London' });
-    
-    expect(response.status).toBe(200);
-    expect(response.headers['content-type']).toMatch(/json/);
-    expect(response.body).toHaveProperty('temperature');
-    expect(response.body).toHaveProperty('description');
-    expect(response.body).toHaveProperty('humidity');
-    expect(response.body).toHaveProperty('windSpeed');
-    expect(response.body).toHaveProperty('iconUrl');
-
-    // Check types
-    expect(typeof response.body.temperature).toBe('number');
-    expect(typeof response.body.description).toBe('string');
-    expect(typeof response.body.humidity).toBe('number');
-    expect(typeof response.body.windSpeed).toBe('number');
-    expect(typeof response.body.iconUrl).toBe('string');
-
-    // Check values range
-    expect(response.body.temperature).toBeGreaterThanOrEqual(-10);
-    expect(response.body.temperature).toBeLessThanOrEqual(40);
-    expect(response.body.humidity).toBeGreaterThanOrEqual(20);
-    expect(response.body.humidity).toBeLessThanOrEqual(100);
-    expect(response.body.windSpeed).toBeGreaterThanOrEqual(0);
-    expect(response.body.windSpeed).toBeLessThanOrEqual(20);
-
-    // Check description is valid
-    const validDescriptions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
-    expect(validDescriptions).toContain(response.body.description);
+  describe('GET /api/weather/cities', () => {
+    test('should return list of cities', async () => {
+      const response = await request(app).get('/api/weather/cities');
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('cities');
+      expect(Array.isArray(response.body.cities)).toBeTruthy();
+      expect(response.body.cities.length).toBeGreaterThan(0);
+    });
   });
 
-  it('should return error for empty city', async () => {
-    const response = await request(app).get('/weather').query({});
+  describe('GET /api/weather/current', () => {
+    test('should return current weather for Tehran', async () => {
+      const response = await request(app).get('/api/weather/current?city=Tehran');
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('temp');
+      expect(response.body).toHaveProperty('feels_like');
+      expect(response.body).toHaveProperty('humidity');
+      expect(response.body).toHaveProperty('wind');
+      expect(response.body).toHaveProperty('description');
+      expect(response.body).toHaveProperty('icon');
+    });
 
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('City name is required');
+    test('should return 400 if city is missing', async () => {
+      const response = await request(app).get('/api/weather/current');
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error');
+    });
+
+    test('should return 404 for non-existent city', async () => {
+      const response = await request(app).get('/api/weather/current?city=NonExistentCity');
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('error');
+    });
+  });
+
+  describe('GET /api/weather/forecast', () => {
+    test('should return forecast for Tehran', async () => {
+      const response = await request(app).get('/api/weather/forecast?city=Tehran');
+      expect(response.status).toBe(200);
+      expect(Array.isArray(response.body)).toBeTruthy();
+      expect(response.body.length).toBe(5);
+      response.body.forEach(day => {
+        expect(day).toHaveProperty('date');
+        expect(day).toHaveProperty('high');
+        expect(day).toHaveProperty('low');
+        expect(day).toHaveProperty('description');
+        expect(day).toHaveProperty('icon');
+      });
+    });
+
+    test('should return 400 if city is missing', async () => {
+      const response = await request(app).get('/api/weather/forecast');
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error');
+    });
+
+    test('should return 404 for non-existent city', async () => {
+      const response = await request(app).get('/api/weather/forecast?city=NonExistentCity');
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('error');
+    });
   });
 });

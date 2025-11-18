@@ -1,52 +1,29 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
+const weatherRoutes = require('./routes/weather');
 
 const app = express();
-const port = 3000;
-
-// Weather descriptions
-const weatherDescriptions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
-
-// Icon mappings (emoji)
-const iconMappings = {
-  Sunny: '☀️',
-  Rainy: '🌧️',
-  Cloudy: '☁️',
-  Snowy: '❄️'
-};
+const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
+app.use('/api/weather', weatherRoutes);
+
+// Default route to serve index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.get('/weather', (req, res) => {
-  const city = req.query.city;
-  if (!city) {
-    return res.status(400).json({ error: 'City name is required' });
-  }
-
-  // Mock weather data
-  const description = weatherDescriptions[Math.floor(Math.random() * weatherDescriptions.length)];
-  const weatherData = {
-    temperature: Math.random() * (40 - (-10)) + (-10), // -10 to 40
-    description: description,
-    humidity: Math.floor(Math.random() * (100 - 20)) + 20, // 20 to 100
-    windSpeed: Math.random() * 20, // 0 to 20
-    iconUrl: iconMappings[description]
-  };
-
-  res.json(weatherData);
-});
-
+// Export app for testing
 module.exports = app;
 
 if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`Weather app listening at http://localhost:${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
   });
 }
